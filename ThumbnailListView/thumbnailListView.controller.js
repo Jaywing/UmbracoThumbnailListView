@@ -42,10 +42,19 @@
             }
         }
 
+        function getImage(id) {
+
+        }
+
         function activate() {
             angular.forEach($scope.items, function (item) {
                 if (item.thumbnail) {
                     mediaResource.getById(item.thumbnail)
+                        .then(function (media) {
+                            item.thumbnailImage = mediaHelper.resolveFile(media, true);
+                        });
+                } else if (item.image) {
+                    mediaResource.getById(item.image)
                         .then(function (media) {
                             item.thumbnailImage = mediaHelper.resolveFile(media, true);
                         });

@@ -24,11 +24,7 @@
         <div class="umb-table-body thumbnailListView">
             <div class="umb-table-row"
                  ng-repeat="item in items"
-                 ng-class="{
-                            '-selected':item.selected,
-                            '-published':item.published,
-                            '-unpublished':!item.published
-                         }"
+                 ng-class="{ '-selected':item.selected, '-published':item.published, '-unpublished':!item.published }"
                  ng-click="vm.selectItem(item, $index, $event)">
 
                 <div class="umb-table-cell">
@@ -42,11 +38,12 @@
                     </a>
                 </div>
                 <div class="umb-table-cell" ng-repeat="column in options.includeProperties">
-                 
-                    <span ng-if="column.alias === 'thumbnail'" class="umb-content-list__details-image">
-                        <img ng-src="{{item.thumbnailImage}}"  />
+                    
+                    <span ng-if="item[column.alias].indexOf('umb://media/') == 0" class="umb-content-list__details-image">
+                        <img ng-src="{{item.thumbnailImage}}" />
                     </span>
-                    <span ng-if="column.alias !== 'thumbnail'">
+
+                    <span ng-if="item[column.alias].indexOf('umb://media/') != 0">
                         {{item[column.alias]}}
                     </span>
                 </div>
