@@ -1,0 +1,15 @@
+﻿.umb-content-list__details-image {
+    margin:auto;
+}
+
+.umb-content-list__details-image img {
+    height: 200px;  
+}
+
+.umb-content-list__details-list.-light img {
+    opacity: 0.2;
+}
+
+.thumbnailListView .umb-table-cell > * {
+    white-space: normal;
+}

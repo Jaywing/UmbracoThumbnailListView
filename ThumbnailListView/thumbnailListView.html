@@ -1,0 +1,60 @@
+﻿<div ng-controller="Jaywing.ThumbnailListView.ThumbnailListViewController as vm">
+
+    <div class="umb-table" ng-if="items">
+
+        <div class="umb-table-head">
+            <div class="umb-table-row">
+                <div class="umb-table-cell">
+                    <input class="umb-table__input" type="checkbox" ng-if="options.bulkActionsAllowed" ng-click="vm.selectAll($event)" ng-checked="vm.isSelectedAll()">
+                </div>
+                <div class="umb-table-cell umb-table__name">
+                    <a class="umb-table-head__link sortable" href="#" ng-click="vm.sort('Name', true)" prevent-default>
+                        <localize key="general_name">Name</localize>
+                        <i class="umb-table-head__icon icon" ng-class="{'icon-navigation-up': vm.isSortDirection('Name', 'asc'), 'icon-navigation-down': vm.isSortDirection('Name', 'desc')}"></i>
+                    </a>
+                </div>
+                <div class="umb-table-cell" ng-repeat="column in options.includeProperties">
+                    <a class="umb-table-head__link" title="Sort by {{ column.header }}" href="#" ng-click="vm.sort(column.alias, column.allowSorting)" ng-class="{'sortable': column.allowSorting}" prevent-default>
+                        <span ng-bind="column.header"></span>
+                        <i class="umb-table-head__icon icon" ng-class="{'icon-navigation-up': vm.isSortDirection(column.alias, 'asc'), 'icon-navigation-down': vm.isSortDirection(column.alias, 'desc')}"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="umb-table-body thumbnailListView">
+            <div class="umb-table-row"
+                 ng-repeat="item in items"
+                 ng-class="{
+                            '-selected':item.selected,
+                            '-published':item.published,
+                            '-unpublished':!item.published
+                         }"
+                 ng-click="vm.selectItem(item, $index, $event)">
+
+                <div class="umb-table-cell">
+                    <i class="umb-table-body__icon umb-table-body__fileicon {{item.icon}}" ng-class="getIcon(item)"></i>
+                    <i class="umb-table-body__icon umb-table-body__checkicon icon-check"></i>
+                </div>
+                <div class="umb-table-cell umb-table__name">
+                    <a title="{{ item.name }}" class="umb-table-body__link" href=""
+                       ng-click="vm.clickItem(item, $event)"
+                       ng-bind="item.name">
+                    </a>
+                </div>
+                <div class="umb-table-cell" ng-repeat="column in options.includeProperties">
+                 
+                    <span ng-if="column.alias === 'thumbnail'" class="umb-content-list__details-image">
+                        <img ng-src="{{item.thumbnailImage}}"  />
+                    </span>
+                    <span ng-if="column.alias !== 'thumbnail'">
+                        {{item[column.alias]}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <umb-empty-state ng-if="!items && options.filter.length <= 0" position="center">
+        <localize key="content_listViewNoItems">There are no items show in the list.</localize>
+    </umb-empty-state>
+</div>
