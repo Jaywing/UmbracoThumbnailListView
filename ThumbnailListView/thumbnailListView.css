@@ -3,7 +3,7 @@
 }
 
 .umb-content-list__details-image img {
-    height: 200px;  
+    max-height: 150px;  
 }
 
 .umb-content-list__details-list.-light img {
@@ -11,5 +11,9 @@
 }
 
 .thumbnailListView .umb-table-cell > * {
-    white-space: normal;
+    white-space: normal;   
+}
+
+.thumbnailListView .umb-table-row {
+    min-height:150px;
 }
