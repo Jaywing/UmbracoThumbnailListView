@@ -40,7 +40,7 @@
                 <div class="umb-table-cell" ng-repeat="column in options.includeProperties">
                     
                     <span ng-if="item[column.alias].indexOf('umb://media/') == 0" class="umb-content-list__details-image">
-                        <img ng-src="{{item.thumbnailImage}}" />
+                        <img ng-src="{{item.thumbnailImage}}" alt="{{item.name}}" draggable="false" />
                     </span>
 
                     <span ng-if="item[column.alias].indexOf('umb://media/') != 0">
