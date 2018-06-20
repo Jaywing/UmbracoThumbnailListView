@@ -17,3 +17,7 @@
 .thumbnailListView .umb-table-row {
     min-height:150px;
 }
+
+    .thumbnailListView .umb-table-row.-unpublished {
+        opacity: .4;
+    }
