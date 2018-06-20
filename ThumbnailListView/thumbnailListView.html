@@ -24,11 +24,7 @@
         <div class="umb-table-body thumbnailListView">
             <div class="umb-table-row"
                  ng-repeat="item in items"
-                 ng-class="{
-                            '-selected':item.selected,
-                            '-published':item.published,
-                            '-unpublished':!item.published
-                         }"
+                 ng-class="{'-selected':item.selected,'-published':item.published,'-unpublished':!item.published}"
                  ng-click="vm.selectItem(item, $index, $event)">
 
                 <div class="umb-table-cell">
