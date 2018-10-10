@@ -41,10 +41,10 @@
 
                     <div ng-switch on="column.header.toLowerCase()">
                         <div ng-switch-when="thumbnail">
-                            <img ng-src="{{item[column.alias]}}" alt="{{item.name}}" />
+                            <img ng-src="{{item[column.alias]}}" ng-if="item[column.alias].indexOf('umb') !== 0" alt="{{item.name}}" />
                         </div>
                         <div ng-switch-when="image">
-                            <img ng-src="{{item[column.alias]}}" alt="{{item.name}}" />
+                            <img ng-src="{{item[column.alias]}}" ng-if="item[column.alias].indexOf('umb') !== 0" alt="{{item.name}}" />
                         </div>                       
                         <div ng-switch-default>
                             <span>{{item[column.alias]}}</span>
