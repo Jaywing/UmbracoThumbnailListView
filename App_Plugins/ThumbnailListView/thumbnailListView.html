@@ -38,14 +38,18 @@
                     </a>
                 </div>
                 <div class="umb-table-cell" ng-repeat="column in options.includeProperties">
-                    
-                    <span ng-if="item[column.alias].indexOf('umb://media/') == 0" class="umb-content-list__details-image">
-                        <img ng-src="{{item.thumbnailImage}}" alt="{{item.name}}" draggable="false" />
-                    </span>
 
-                    <span ng-if="item[column.alias].indexOf('umb://media/') != 0">
-                        {{item[column.alias]}}
-                    </span>
+                    <div ng-switch on="column.header.toLowerCase()">
+                        <div ng-switch-when="thumbnail">
+                            <img ng-src="{{item[column.alias]}}" alt="{{item.name}}" />
+                        </div>
+                        <div ng-switch-when="image">
+                            <img ng-src="{{item[column.alias]}}" alt="{{item.name}}" />
+                        </div>                       
+                        <div ng-switch-default>
+                            <span>{{item[column.alias]}}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

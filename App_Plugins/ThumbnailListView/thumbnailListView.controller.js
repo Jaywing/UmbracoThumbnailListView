@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function ThumbnailListViewController($scope, listViewHelper, $location, mediaHelper, mediaResource) {
+    function ThumbnailListViewController($scope, listViewHelper, $location, mediaHelper, mediaResource, contentResource) {
 
         var vm = this;
 
@@ -42,25 +42,31 @@
             }
         }
 
-        function setImage(item) {
-            if (item.thumbnail) {
-                getImage(item, item.thumbnail);
-            } else if (item.image) {
-                getImage(item, item.image);
-            }
-        }
+        function populateDynamicContent() {
+            angular.forEach($scope.options.includeProperties, function (column) {
+                if (!column.isSystem) {
 
-        function getImage(item, id) {
-            mediaResource.getById(id)
-                .then(function (media) {
-                    item.thumbnailImage = mediaHelper.resolveFile(media, true);
-                });
+                    angular.forEach($scope.items, function (item) {
+
+                        if (item[column.alias].indexOf('umb://media/') === 0) {
+                            mediaResource.getById(item[column.alias])
+                                .then(function (media) {
+                                    item[column.alias] = mediaHelper.resolveFile(media, true);
+                                });
+                        }
+                        if (item[column.alias].indexOf('umb://document/') === 0) {
+                            contentResource.getById(item[column.alias])
+                                .then(function (document) {
+                                    item[column.alias] = document.name;
+                                });
+                        }
+                    });
+                }
+            });
         }
 
         function activate() {
-            angular.forEach($scope.items, function (item) {
-                setImage(item);
-            });
+            populateDynamicContent(); 
         }
         activate();
     }
